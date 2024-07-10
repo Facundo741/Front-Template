@@ -64,7 +64,7 @@ function Register() {
               required: 'Full Name is required',
             })}
             error={!!errors.fullName}
-            helperText={errors.fullName ? errors.fullName.message : ''}
+            helperText={errors.fullName ? errors.fullName.message : '' }
           />
           <TextField
             margin="normal"
