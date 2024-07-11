@@ -116,7 +116,7 @@ function Login() {
           >
             Sign In
           </Button>
-          <Typography variant="body2" sx={{ mt: 1}}>
+          <Typography variant="body" sx={{ mt: 1}}>
             Don't have an account yet?{' '}
             <Link to="/register" style={{ textDecoration: 'none', color: 'blue' }}>
               Sign up

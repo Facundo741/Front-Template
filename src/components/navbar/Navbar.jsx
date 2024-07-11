@@ -98,7 +98,7 @@ function Navbar() {
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
+                <MenuItem key={page} onClick={handleCloseNavMenu} component={Link} to={`/${page.toLowerCase()}`}>
                   <Typography textAlign="center">{page}</Typography>
                 </MenuItem>
               ))}
@@ -141,7 +141,7 @@ function Navbar() {
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar sx={{ bgcolor: grey[400] }}></Avatar>
+                  <Avatar sx={{ bgcolor: grey[400] }} />
                 </IconButton>
               </Tooltip>
               <Menu
@@ -161,7 +161,21 @@ function Navbar() {
                 onClose={handleCloseUserMenu}
               >
                 {settings.map((setting) => (
-                  <MenuItem key={setting} onClick={setting === 'Logout' ? handleLogout : handleCloseUserMenu}>
+                  <MenuItem
+                    key={setting}
+                    onClick={
+                      setting === 'Logout'
+                        ? () => {
+                            handleLogout();
+                            handleCloseUserMenu();
+                          }
+                        : handleCloseUserMenu
+                    }
+                    component={Link}
+                    to={
+                      setting === 'Logout' ? '/' : `/profile/${setting.toLowerCase()}`
+                    }
+                  >
                     <Typography textAlign="center">{setting}</Typography>
                   </MenuItem>
                 ))}

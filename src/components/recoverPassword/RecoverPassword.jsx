@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Container, Button, TextField, Typography, Box, CircularProgress } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import instance from '../api/axios';
+import instance from '../../api/axios';
 
 const RecoverPassword = () => {
   const { register, handleSubmit, formState: { errors }, reset } = useForm();
