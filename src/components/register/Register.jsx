@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import {
   TextField,
@@ -13,7 +13,8 @@ import {
 } from '@mui/material';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../../context/UserContext';
 
 function Register() {
   const {
@@ -24,15 +25,25 @@ function Register() {
     reset,
   } = useForm();
 
-  const [showPassword, setShowPassword] = useState(false);
-  const [acceptTerms, setAcceptTerms] = useState(false);
+  const { register: userRegister, isAuthenticated } = useAuth();
+  const navigate = useNavigate();
+
+  const [showPassword, setShowPassword] = React.useState(false);
+  const [acceptTerms, setAcceptTerms] = React.useState(false);
 
   const handleTogglePasswordVisibility = () => {
     setShowPassword((prevShowPassword) => !prevShowPassword);
   };
 
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate('/');
+    }
+  }, [isAuthenticated, navigate]);
+
   const onSubmit = (data) => {
     console.log(data);
+    userRegister(data);
     reset();
     setAcceptTerms(false);
   };
@@ -64,7 +75,7 @@ function Register() {
               required: 'Full Name is required',
             })}
             error={!!errors.fullName}
-            helperText={errors.fullName ? errors.fullName.message : '' }
+            helperText={errors.fullName ? errors.fullName.message : ''}
           />
           <TextField
             margin="normal"
