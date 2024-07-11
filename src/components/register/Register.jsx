@@ -25,7 +25,7 @@ function Register() {
     reset,
   } = useForm();
 
-  const { register: userRegister, isAuthenticated } = useAuth();
+  const { signup, isAuthenticated } = useAuth();
   const navigate = useNavigate();
 
   const [showPassword, setShowPassword] = React.useState(false);
@@ -43,7 +43,7 @@ function Register() {
 
   const onSubmit = (data) => {
     console.log(data);
-    userRegister(data);
+    signup(data);
     reset();
     setAcceptTerms(false);
   };
@@ -81,9 +81,26 @@ function Register() {
             margin="normal"
             required
             fullWidth
-            id="username"
+            id="dni"
+            label="DNI"
+            type="text"
+            {...register('dni', {
+              required: 'DNI is required',
+              pattern: {
+                value: /^\d{8}$/,
+                message: 'Invalid DNI number',
+              },
+            })}
+            error={!!errors.dni}
+            helperText={errors.dni ? errors.dni.message : ''}
+          />
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            id="userName"
             label="Username"
-            {...register('username', {
+            {...register('userName', {
               required: 'Username is required',
             })}
             error={!!errors.username}
@@ -163,22 +180,6 @@ function Register() {
                 </InputAdornment>
               ),
             }}
-          />
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            id="dob"
-            label="Date of Birth"
-            type="date"
-            InputLabelProps={{
-              shrink: true,
-            }}
-            {...register('dob', {
-              required: 'Date of Birth is required',
-            })}
-            error={!!errors.dob}
-            helperText={errors.dob ? errors.dob.message : ''}
           />
           <FormControlLabel
             control={
