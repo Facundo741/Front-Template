@@ -5,16 +5,18 @@ import Navbar from './components/navbar/Navbar';
 import Login from './components/login/Login';
 import Register from './components/register/Register';
 import Home from './components/home/Home';
+import RecoverPassword from './components/recoverPassword/RecoverPassword';
 
 function App() {
   return (
     <Router>
       <UserProvider>
-        <Navbar />
+        <Navbar/>
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
+          <Route path="/" element={<Home />}/>
+          <Route path="/login" element={<Login />}/>
+          <Route path="/register" element={<Register />}/>
+          <Route path="/forgot-password" element={<RecoverPassword />}/>
         </Routes>
       </UserProvider>
     </Router>
