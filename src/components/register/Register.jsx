@@ -1,35 +1,18 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import {
-  TextField,
-  Button,
-  Box,
-  Typography,
-  Container,
-  IconButton,
-  InputAdornment,
-  FormControlLabel,
-  Checkbox,
-} from '@mui/material';
+import { TextField, Button, Box, Typography, Container, IconButton, InputAdornment, FormControlLabel, Checkbox } from '@mui/material';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/UserContext';
 
 function Register() {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    watch,
-    reset,
-  } = useForm();
-
+  const { register, handleSubmit, formState: { errors }, watch, reset } = useForm();
   const { signup, isAuthenticated } = useAuth();
   const navigate = useNavigate();
 
-  const [showPassword, setShowPassword] = React.useState(false);
-  const [acceptTerms, setAcceptTerms] = React.useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [acceptTerms, setAcceptTerms] = useState(false);
 
   const handleTogglePasswordVisibility = () => {
     setShowPassword((prevShowPassword) => !prevShowPassword);
@@ -42,7 +25,6 @@ function Register() {
   }, [isAuthenticated, navigate]);
 
   const onSubmit = (data) => {
-    console.log(data);
     signup(data);
     reset();
     setAcceptTerms(false);
@@ -51,15 +33,8 @@ function Register() {
   const password = watch('password', '');
 
   return (
-    <Container component="main" maxWidth="xs">
-      <Box
-        sx={{
-          marginTop: 8,
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-        }}
-      >
+    <Container component="main" maxWidth="xs" sx={{ mt: 5, bgcolor: 'white', p: 5, borderRadius: 1 }}>
+      <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
         <Typography component="h1" variant="h5">
           Register
         </Typography>
@@ -103,8 +78,8 @@ function Register() {
             {...register('userName', {
               required: 'Username is required',
             })}
-            error={!!errors.username}
-            helperText={errors.username ? errors.username.message : ''}
+            error={!!errors.userName}
+            helperText={errors.userName ? errors.userName.message : ''}
           />
           <TextField
             margin="normal"
@@ -201,7 +176,14 @@ function Register() {
                 }}
               />
             }
-            label="I accept the Terms and Conditions"
+            label={
+              <span>
+                I accept the{' '}
+                <Link to="/terms-and-conditions" style={{ color: 'blue', textDecoration: 'none' }}>
+                  Terms and Conditions
+                </Link>
+              </span>
+            }
           />
           {errors.terms && (
             <Typography variant="body2" color="red">

@@ -18,7 +18,7 @@ import { Link } from 'react-router-dom';
 import { useAuth } from '../../context/UserContext';
 
 const pages = ['Products', 'Pricing', 'Blog'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+const settings = ['Account', 'Dashboard', 'Logout'];
 
 function Navbar() {
   const { isAuthenticated, logout } = useAuth();

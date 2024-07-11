@@ -13,8 +13,16 @@ const Home = () => {
           height: '100vh', 
         }}
       >
-        <Typography variant="h1" align="center" gutterBottom>
-          Hola a todos
+        <Typography 
+          variant="h3" 
+          align="justify" 
+          sx={{ 
+            textAlign: 'justify',
+            hyphens: 'auto',
+            textJustify: 'inter-word',
+          }}
+        >
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora quidem doloribus quis id sed, tempore hic optio. Accusantium aperiam repellat rem error animi? Pariatur accusamus placeat officia consequatur nesciunt. Eos!
         </Typography>
       </Box>
     </Container>

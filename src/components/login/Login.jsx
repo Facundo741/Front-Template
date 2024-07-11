@@ -4,7 +4,7 @@ import { TextField, Button, Box, Typography, Container, IconButton, InputAdornme
 import { useAuth } from '../../context/UserContext';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-import { Link, useNavigate } from 'react-router-dom';  
+import { Link, useNavigate } from 'react-router-dom';
 
 function Login() {
   const { signin, isAuthenticated } = useAuth();
@@ -34,10 +34,9 @@ function Login() {
   };
 
   return (
-    <Container component="main" maxWidth="xs">
+    <Container component="main" sx={{ mt: 5, bgcolor: 'white', p: 10, borderRadius: 1 }}>
       <Box
         sx={{
-          marginTop: 8,
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
@@ -103,15 +102,21 @@ function Login() {
               )
             }}
           />
+         <Typography variant="body2" align="left" sx={{ mt: 1 }}>
+            Forgot your password?{' '}
+            <Link to="/forgot-password" style={{ textDecoration: 'none' }}>
+              <span style={{ color: 'blue' }}>Click here</span>
+            </Link>
+          </Typography>
           <Button
             type="submit"
             fullWidth
             variant="contained"
-            sx={{ mt: 3, mb: 2 }}
+            sx={{ mt: 2, mb: 2 }}
           >
             Sign In
           </Button>
-          <Typography variant="body2">
+          <Typography variant="body2" sx={{ mt: 1}}>
             Don't have an account yet?{' '}
             <Link to="/register" style={{ textDecoration: 'none', color: 'blue' }}>
               Sign up
