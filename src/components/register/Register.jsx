@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import {
   TextField,
@@ -13,7 +13,8 @@ import {
 } from '@mui/material';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../../context/UserContext';
 
 function Register() {
   const {
@@ -24,15 +25,25 @@ function Register() {
     reset,
   } = useForm();
 
-  const [showPassword, setShowPassword] = useState(false);
-  const [acceptTerms, setAcceptTerms] = useState(false);
+  const { signup, isAuthenticated } = useAuth();
+  const navigate = useNavigate();
+
+  const [showPassword, setShowPassword] = React.useState(false);
+  const [acceptTerms, setAcceptTerms] = React.useState(false);
 
   const handleTogglePasswordVisibility = () => {
     setShowPassword((prevShowPassword) => !prevShowPassword);
   };
 
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate('/');
+    }
+  }, [isAuthenticated, navigate]);
+
   const onSubmit = (data) => {
     console.log(data);
+    signup(data);
     reset();
     setAcceptTerms(false);
   };
@@ -64,15 +75,32 @@ function Register() {
               required: 'Full Name is required',
             })}
             error={!!errors.fullName}
-            helperText={errors.fullName ? errors.fullName.message : '' }
+            helperText={errors.fullName ? errors.fullName.message : ''}
           />
           <TextField
             margin="normal"
             required
             fullWidth
-            id="username"
+            id="dni"
+            label="DNI"
+            type="text"
+            {...register('dni', {
+              required: 'DNI is required',
+              pattern: {
+                value: /^\d{8}$/,
+                message: 'Invalid DNI number',
+              },
+            })}
+            error={!!errors.dni}
+            helperText={errors.dni ? errors.dni.message : ''}
+          />
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            id="userName"
             label="Username"
-            {...register('username', {
+            {...register('userName', {
               required: 'Username is required',
             })}
             error={!!errors.username}
@@ -152,22 +180,6 @@ function Register() {
                 </InputAdornment>
               ),
             }}
-          />
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            id="dob"
-            label="Date of Birth"
-            type="date"
-            InputLabelProps={{
-              shrink: true,
-            }}
-            {...register('dob', {
-              required: 'Date of Birth is required',
-            })}
-            error={!!errors.dob}
-            helperText={errors.dob ? errors.dob.message : ''}
           />
           <FormControlLabel
             control={
