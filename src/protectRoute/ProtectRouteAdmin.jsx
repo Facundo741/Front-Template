@@ -9,7 +9,7 @@ const ProtectedRouteAdmin = () => {
     return <Navigate to="/" replace/>
   }
 
-  if (isAuthenticated && !(user.role === "admin"))
+  if (isAuthenticated && !(user.role === "client"|| user.role === "admin"))
     return <Navigate to="/" replace />;
 
   return <Outlet />;
