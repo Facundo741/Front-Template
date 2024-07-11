@@ -1,11 +1,14 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { TextField, Button, Box, Typography, Container, IconButton, InputAdornment } from '@mui/material';
+import { useAuth } from '../../context/UserContext';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-import { Link } from 'react-router-dom';  // Esta línea se mantiene para la navegación
+import { Link, useNavigate } from 'react-router-dom';  
 
 function Login() {
+  const { signin, isAuthenticated } = useAuth();
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -13,14 +16,20 @@ function Login() {
     reset
   } = useForm();
 
-  const [showPassword, setShowPassword] = useState(false);
+  const [showPassword, setShowPassword] = React.useState(false);
 
   const handleTogglePasswordVisibility = () => {
     setShowPassword((prevShowPassword) => !prevShowPassword);
   };
 
-  const onSubmit = (data) => {
-    console.log(data);
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate('/');
+    }
+  }, [isAuthenticated, navigate]);
+
+  const onSubmit = async (data) => {
+    await signin(data);
     reset();
   };
 
