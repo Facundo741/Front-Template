@@ -21,7 +21,7 @@ const pages = ['Products', 'Pricing', 'Blog'];
 const settings = ['Account', 'Dashboard', 'Logout'];
 
 function Navbar() {
-  const { isAuthenticated, logout } = useAuth();
+  const { isAuthenticated, user, logout } = useAuth(); // Assuming user contains role information
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
 
@@ -160,6 +160,16 @@ function Navbar() {
                 open={Boolean(anchorElUser)}
                 onClose={handleCloseUserMenu}
               >
+                {user && user.role === 'admin' && (
+                  <MenuItem
+                    key="Admin Panel"
+                    onClick={handleCloseUserMenu}
+                    component={Link}
+                    to="/admin/userpanel"
+                  >
+                    <Typography textAlign="center">Admin Panel</Typography>
+                  </MenuItem>
+                )}
                 {settings.map((setting) => (
                   <MenuItem
                     key={setting}
