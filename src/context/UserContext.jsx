@@ -98,7 +98,7 @@ export const UserProvider = ({ children }) => {
       await instance.patch('/user/update-password', user);  
       logout();
     } catch (error) {
-      setErrors(["Error al actualizar la contraseña."]);
+      setErrors(["Error updating password."]);
     }
   };
 

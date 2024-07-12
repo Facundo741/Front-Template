@@ -7,20 +7,25 @@ import Register from './components/register/Register';
 import Home from './components/home/Home';
 import RecoverPassword from './components/recoverPassword/RecoverPassword';
 import ProtectedRouteAdmin from './protectRoute/ProtectRouteAdmin';
+import ProtectedRouteUser from './protectRoute/ProtectRouteUser';
 import SettingsUser from './components/profile/SettingsUser';
+import UserAdminPanel from './components/Admin/PanelUserAdmin';
 
 function App() {
   return (
     <Router>
       <UserProvider>
-        <Navbar/>
+        <Navbar />
         <Routes>
-          <Route path="/" element={<Home />}/>
+          <Route path="/" element={<Home/>}/>
           <Route path="/login" element={<Login />}/>
           <Route path="/register" element={<Register />}/>
-          <Route path="/forgot-password" element={<RecoverPassword />}/>
-            <Route element={<ProtectedRouteAdmin/>}>
-              <Route path="/profile/account" element={<SettingsUser/>}/>
+          <Route path="/forgot-password" element={<RecoverPassword/>}/>
+          <Route element={<ProtectedRouteUser/>}>
+            <Route path="/profile/account" element={<SettingsUser/>}/>
+          </Route>
+          <Route element={<ProtectedRouteAdmin/>}>
+            <Route path="/admin/userpanel" element={<UserAdminPanel/>}/>
           </Route>
         </Routes>
       </UserProvider>
