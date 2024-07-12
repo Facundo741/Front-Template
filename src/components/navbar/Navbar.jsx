@@ -18,10 +18,10 @@ import { Link } from 'react-router-dom';
 import { useAuth } from '../../context/UserContext';
 
 const pages = ['Products', 'Pricing', 'Blog'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+const settings = ['Account', 'Dashboard', 'Logout'];
 
 function Navbar() {
-  const { isAuthenticated, logout } = useAuth();
+  const { isAuthenticated, user, logout } = useAuth(); // Assuming user contains role information
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
 
@@ -98,7 +98,7 @@ function Navbar() {
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
+                <MenuItem key={page} onClick={handleCloseNavMenu} component={Link} to={`/${page.toLowerCase()}`}>
                   <Typography textAlign="center">{page}</Typography>
                 </MenuItem>
               ))}
@@ -141,7 +141,7 @@ function Navbar() {
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar sx={{ bgcolor: grey[400] }}></Avatar>
+                  <Avatar sx={{ bgcolor: grey[400] }} />
                 </IconButton>
               </Tooltip>
               <Menu
@@ -160,8 +160,32 @@ function Navbar() {
                 open={Boolean(anchorElUser)}
                 onClose={handleCloseUserMenu}
               >
+                {user && user.role === 'admin' && (
+                  <MenuItem
+                    key="Admin Panel"
+                    onClick={handleCloseUserMenu}
+                    component={Link}
+                    to="/admin/userpanel"
+                  >
+                    <Typography textAlign="center">Admin Panel</Typography>
+                  </MenuItem>
+                )}
                 {settings.map((setting) => (
-                  <MenuItem key={setting} onClick={setting === 'Logout' ? handleLogout : handleCloseUserMenu}>
+                  <MenuItem
+                    key={setting}
+                    onClick={
+                      setting === 'Logout'
+                        ? () => {
+                            handleLogout();
+                            handleCloseUserMenu();
+                          }
+                        : handleCloseUserMenu
+                    }
+                    component={Link}
+                    to={
+                      setting === 'Logout' ? '/' : `/profile/${setting.toLowerCase()}`
+                    }
+                  >
                     <Typography textAlign="center">{setting}</Typography>
                   </MenuItem>
                 ))}

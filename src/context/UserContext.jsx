@@ -1,5 +1,5 @@
 import React, { createContext, useState, useContext, useEffect} from "react";
-import instance from "../components/api/axios";
+import instance from "../api/axios";
 import { useNavigate } from "react-router-dom";
 
 export const UserContext = createContext();
@@ -98,7 +98,7 @@ export const UserProvider = ({ children }) => {
       await instance.patch('/user/update-password', user);  
       logout();
     } catch (error) {
-      setErrors(["Error al actualizar la contraseña."]);
+      setErrors(["Error updating password."]);
     }
   };
 
