@@ -113,11 +113,11 @@ function Login() {
             type="submit"
             fullWidth
             variant="contained"
-            sx={{ mt: 3, mb: 2 }}
+            sx={{ mt: 2, mb: 2 }}
           >
             Sign In
           </Button>
-          <Box sx={{ display: 'flex', alignItems: 'center', mt: 1 }}>
+          <Box sx={{ display: 'flex', alignItems: 'center', mt: 2 }}>
             <Box sx={{ flexGrow: 1, height: '1px', bgcolor: 'grey.500' }} />
             <Typography sx={{ mx: 2 }}>o</Typography>
             <Box sx={{ flexGrow: 1, height: '1px', bgcolor: 'grey.500' }} />
@@ -126,8 +126,6 @@ function Login() {
             <LoginGoogle />
           </Box>
           <Typography variant="body2" sx={{ mt: 3}}>
-          <Typography variant="body" sx={{ mt: 1}}>
-
             Don't have an account yet?{' '}
             <Link to="/register" style={{ textDecoration: 'none', color: 'blue' }}>
               Sign up
