@@ -10,10 +10,10 @@ const LoginGoogle = () => {
   const { signin } = useAuth();
   const navigate = useNavigate();
 
-  const handleLoginSuccess = async (credentialResponse) => {
+  const handleLoginSuccess = async (user) => {
     try {
-      const token = credentialResponse.credential;
-      const res = await instance.post('/user/google-login', { token });
+      // const token = credentialResponse.credential;
+      const res = await instance.post('/user/google-login',user);
 
       if (res.status === 200) {
         const data = res.data;
