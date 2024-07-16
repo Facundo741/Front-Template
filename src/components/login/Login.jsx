@@ -5,6 +5,7 @@ import { useAuth } from '../../context/UserContext';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { Link, useNavigate } from 'react-router-dom';
+import LoginGoogle from './LoginGoogle';
 
 function Login() {
   const { signin, isAuthenticated } = useAuth();
@@ -102,7 +103,7 @@ function Login() {
               )
             }}
           />
-         <Typography variant="body2" align="left" sx={{ mt: 1 }}>
+          <Typography variant="body2" align="left" sx={{ mt: 2 }}>
             Forgot your password?{' '}
             <Link to="/forgot-password" style={{ textDecoration: 'none' }}>
               <span style={{ color: 'blue' }}>Click here</span>
@@ -112,11 +113,19 @@ function Login() {
             type="submit"
             fullWidth
             variant="contained"
-            sx={{ mt: 2, mb: 2 }}
+            sx={{ mt: 3, mb: 2 }}
           >
             Sign In
           </Button>
-          <Typography variant="body2" sx={{ mt: 1}}>
+          <Box sx={{ display: 'flex', alignItems: 'center', mt: 1 }}>
+            <Box sx={{ flexGrow: 1, height: '1px', bgcolor: 'grey.500' }} />
+            <Typography sx={{ mx: 2 }}>o</Typography>
+            <Box sx={{ flexGrow: 1, height: '1px', bgcolor: 'grey.500' }} />
+          </Box>
+          <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2 }}>
+            <LoginGoogle />
+          </Box>
+          <Typography variant="body2" sx={{ mt: 3}}>
             Don't have an account yet?{' '}
             <Link to="/register" style={{ textDecoration: 'none', color: 'blue' }}>
               Sign up
