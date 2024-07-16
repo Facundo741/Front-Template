@@ -21,7 +21,7 @@ const pages = ['Products', 'Pricing', 'Blog'];
 const settings = ['Account', 'Dashboard', 'Logout'];
 
 function Navbar() {
-  const { isAuthenticated, user, logout } = useAuth(); // Assuming user contains role information
+  const { isAuthenticated, user, logout } = useAuth();
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
 
