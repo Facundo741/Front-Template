@@ -1,19 +1,42 @@
 import React from 'react';
 import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../context/UserContext';
+import instance from '../../api/axios';
+
+const clientId = '793959150532-n8h7ji8lere1c2ok9q262nul33tmpftf.apps.googleusercontent.com';
 
 const LoginGoogle = () => {
-  return (
-    <GoogleOAuthProvider clientId="793959150532-n8h7ji8lere1c2ok9q262nul33tmpftf.apps.googleusercontent.com">
-    <GoogleLogin
-        onSuccess={credentialResponse => {
-            console.log(credentialResponse);
-        }}
-        onError={() => {
-            console.log('Login Failed');
-        }}
-        />
-    </GoogleOAuthProvider>
-  )
-}
+  const { signin } = useAuth();
+  const navigate = useNavigate();
 
-export default LoginGoogle
+  const handleLoginSuccess = async (credentialResponse) => {
+    try {
+      const token = credentialResponse.credential;
+      const res = await instance.post('/user/google-login', { token });
+
+      if (res.status === 200) {
+        const data = res.data;
+        await signin(data);
+        navigate('/');
+      } else {
+        console.error('Google Sign-In Error:', res.data);
+      }
+    } catch (error) {
+      console.error('Google Sign-In Error:', error);
+    }
+  };
+
+  return (
+    <GoogleOAuthProvider clientId={clientId}>
+      <GoogleLogin
+        onSuccess={handleLoginSuccess}
+        onError={() => {
+          console.log('Login Failed');
+        }}
+      />
+    </GoogleOAuthProvider>
+  );
+};
+
+export default LoginGoogle;
